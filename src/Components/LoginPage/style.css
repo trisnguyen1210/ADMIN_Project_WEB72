@@ -1,0 +1,67 @@
+.login {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+
+.login_background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 0 40%;
+    padding: 25px;
+    background-color: #D2E0FB;
+    border-radius: 25px;
+}
+
+.login_header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login_header h2 {
+    font-family: 'Rock Salt', cursive;
+}
+
+.login_header h3 {
+    font-family: 'Rock Salt', cursive;
+}
+
+.login_body {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    max-width: 300px;
+}
+
+#normal_login {
+    text-align: start;
+    width: 100%;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+#normal_login_username_help {
+    text-align: start;
+}
+
+#normal_login_password_help {
+    text-align: start;
+}
+
+#login_register {
+    text-align: center;
+}

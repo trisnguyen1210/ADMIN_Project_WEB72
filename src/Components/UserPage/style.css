@@ -1,0 +1,4 @@
+.card-avatar {
+    gap: 20px;
+    flex-wrap: wrap;
+}

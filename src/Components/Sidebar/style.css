@@ -1,0 +1,36 @@
+.sidebar {
+    width: fit-content;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 999;
+}
+
+.sidebar_btn {
+    display: flex;
+    justify-content: start;
+    padding: 15px;
+    height: 30vh;
+}
+
+.sidebar_menu {
+    padding: 0px 15px;
+}
+
+.sidebar_menu .ant-menu {
+    border-radius: 15px;
+}
+
+.sidebar_menu .ant-menu-submenu {
+    border-radius: 15px;
+}
+
+.sidebar_footer {
+    padding: 15px;
+}
+
+.sidebar_footer_avatar {
+    padding: 15px 0px;
+}

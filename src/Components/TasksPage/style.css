@@ -1,0 +1,20 @@
+.taskpage_background {
+    margin-top: 100px;
+}
+
+.taskpage_item {
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.taskpage_circleprogress {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.taskpage_button {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+}

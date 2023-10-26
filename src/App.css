@@ -1,0 +1,56 @@
+#root {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body,
+html {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: white;
+}
+
+.background {
+  padding: 30px 15%;
+}
+
+.container {
+  display: flex;
+}
+
+main {
+  width: 100%;
+  padding: 20px;
+}
+
+.theme_light {
+  background-color: white !important;
+}
+
+.ant-menu-light {
+  background-color: #FFCC70 !important;
+  color: black;
+}
+
+.ant-menu-light.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background-color: #FFCC70;
+}
+
+.theme_dark {
+  background-color: #161616 !important;
+}
+
+.ant-menu-dark {
+  background-color: #21332C !important;
+  color: wheat;
+}
+
+.ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background-color: #21332C;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background-color: #161616;
+}
