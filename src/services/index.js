@@ -1,10 +1,18 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000"
+    baseURL: "http://localhost:3000",
 })
 
-const login = (username, password) => {
+axiosInstance.interceptors.request.use((config) => {
+    const token = JSON.parse(localStorage.getItem('user')).token;
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config;
+})
+
+const logIn = (username, password) => {
     return axiosInstance.post(`/login`, { username, password })
 }
 const signUp = (username, password) => {
@@ -14,4 +22,7 @@ const signUp = (username, password) => {
 const getUser = (username, password) => {
     return axiosInstance.post(`/user/login`, { username, password })
 }
-export { login, signUp, getUser }
+const createVideo = (data) => {
+    return axiosInstance.post(`/video/addVideo`, data)
+}
+export { logIn, signUp, getUser, createVideo }

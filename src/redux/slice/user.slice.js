@@ -13,13 +13,13 @@ export const userSlice = createSlice({
             state.user = action.payload.user
             state.token = action.payload.token
         },
-        logout: (state, action) => {
+        logoutSucess: (state, action) => {
             state.user = null; // Đặt userData thành null khi đăng xuất
             state.token = null;
         },
     },
 })
 
-export const { loginSuccess, logout } = userSlice.actions
+export const { loginSuccess, logoutSucess } = userSlice.actions
 
 export default userSlice.reducer

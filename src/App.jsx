@@ -10,14 +10,16 @@ import TasksPage from "./Components/TasksPage";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "./Layout/MainLayout";
 import NonAuthLayout from "./Layout/NonAuthLayout";
+import ErrorLayout from "./Layout/ErrorLayout";
 import { loginSuccess } from "./redux/slice/user.slice";
 import { useEffect } from "react";
+import CreateVideoPage from "./Components/CreateVideoPage";
 
 function App() {
   const dispatch = useDispatch();
-  const userData = JSON.parse(localStorage.getItem("user"));
-  const isUserLoggedIn = useSelector((state) => state.user.token);
+  const isUserLoggedIn = useSelector((state) => state.user?.token);
   useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
       dispatch(loginSuccess(userData));
     }
@@ -34,10 +36,12 @@ function App() {
         {isUserLoggedIn && (
           <Route path="/" element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/create-video" element={<CreateVideoPage />} />
             <Route path="/user" element={<UserPage />} />
             <Route path="/task" element={<TasksPage />} />
           </Route>
         )}
+        <Route path="*" element={<ErrorLayout />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,11 @@
+.create-video {
+    width: fit-content;
+}
+
+.create-video_input_tag{
+    max-width: 30vw;
+}
+
+.create-video_input_tag #basic_tagVideo {
+    gap: 8px !important;
+}

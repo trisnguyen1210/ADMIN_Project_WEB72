@@ -7,6 +7,12 @@
     width: 100%;
 }
 
+.login_notification {
+    position: fixed;
+    top: 30px;
+    width: 40%;
+}
+
 
 .login_background {
     display: flex;

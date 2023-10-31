@@ -1,31 +1,43 @@
-import React, { useEffect } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Button, Checkbox, Alert, Space } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./style.css";
-import { login } from "../../services";
+import { logIn } from "../../services";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../../redux/slice/user.slice";
 import { useNavigate } from "react-router-dom";
+
 function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [logInFail, useLogInFail] = useState({ status: false, message: "" });
 
   const handleSubmit = async (values) => {
     try {
-      const user = await login(values.username, values.password);
-      const remember = values.remember;
-      if (remember === true) {
-        localStorage.setItem("user", JSON.stringify(user.data));
-      } else {
-        sessionStorage.setItem("user", JSON.stringify(user.data));
+      const user = await logIn(values.username, values.password);
+      if (user) {
+        let errorMessage = "";
+        if (user.data.user.role === 1) {
+          const remember = values.remember;
+          if (remember === true) {
+            localStorage.setItem("user", JSON.stringify(user.data));
+          } else {
+            sessionStorage.setItem("user", JSON.stringify(user.data));
+          }
+          dispatch(loginSuccess(user.data));
+        } else {
+          errorMessage = "No permission";
+          useLogInFail({ status: true, message: errorMessage });
+        }
       }
-      dispatch(loginSuccess(user.data));
     } catch (error) {
       console.log(error);
+      useLogInFail({ status: true, message: error.response.data.message });
     }
   };
 
   const userFromState = useSelector((state) => state.user);
+
   useEffect(() => {
     if (userFromState.token != "") {
       navigate("/");
@@ -35,10 +47,21 @@ function LoginPage() {
   return (
     <>
       <div className="login">
+        {logInFail.status ? (
+          <Space className="login_notification" direction="vertical">
+            <Alert
+              message="LogIn fail"
+              showIcon
+              description={logInFail.message}
+              type="error"
+              closable
+            />
+          </Space>
+        ) : null}
         <div className="login_background">
           <div className="login_header">
             <h2>Login</h2>
-            <h3>and see your task</h3>
+            <h3>and management videos</h3>
           </div>
           <div className="login_body">
             <Form
