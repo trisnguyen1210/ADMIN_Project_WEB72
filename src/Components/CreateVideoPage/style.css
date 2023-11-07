@@ -2,7 +2,16 @@
     width: fit-content;
 }
 
-.create-video_input_tag{
+.create-video_title {
+    font-family: cursive;
+    font-size: 25px;
+    background-color: #87C4FF;
+    width: fit-content;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.create-video_input_tag {
     max-width: 30vw;
 }
 

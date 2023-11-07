@@ -14,6 +14,7 @@ import ErrorLayout from "./Layout/ErrorLayout";
 import { loginSuccess } from "./redux/slice/user.slice";
 import { useEffect } from "react";
 import CreateVideoPage from "./Components/CreateVideoPage";
+import EditVideoPage from "./Components/EditVideoPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/create-video" element={<CreateVideoPage />} />
+            <Route path="/edit-video" element={<EditVideoPage />} />
             <Route path="/user" element={<UserPage />} />
             <Route path="/task" element={<TasksPage />} />
           </Route>

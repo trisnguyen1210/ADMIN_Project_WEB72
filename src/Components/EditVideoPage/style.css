@@ -1,0 +1,16 @@
+.edit-video {
+    width: fit-content;
+}
+
+.edit-video_title {
+    font-family: cursive;
+    font-size: 25px;
+    background-color: #64CCC5;
+    width: fit-content;
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.edit-video_data {
+    display: flex;
+}

@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use((config) => {
-    const token = JSON.parse(localStorage.getItem('user')).token;
+    const token = JSON.parse(localStorage.getItem('user'))?.token;
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
@@ -25,4 +25,12 @@ const getUser = (username, password) => {
 const createVideo = (data) => {
     return axiosInstance.post(`/video/addVideo`, data)
 }
-export { logIn, signUp, getUser, createVideo }
+
+const getVideo = (pageSize = 2, pageIndex = 1) => {
+    return axiosInstance.get(`/video/get-paging-video-admin?pageSize=${pageSize}&pageIndex=${pageIndex}`)
+}
+
+const getVideoId = (id) => {
+    return axiosInstance.get(`/video/id/${id}`)
+}
+export { logIn, signUp, getUser, createVideo, getVideo, getVideoId }

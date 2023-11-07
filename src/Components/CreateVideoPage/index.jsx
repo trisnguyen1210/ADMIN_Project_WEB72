@@ -11,11 +11,12 @@ import { createVideo } from "../../services";
 function CreateVideoPage() {
   const { TextArea } = Input;
 
+  const [tagVideo, setTagVideo] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
-  const tagVideo = [
+  const tagsVideo = [
     "Action movie",
     "Adventure movie",
     "Biography",
@@ -39,7 +40,7 @@ function CreateVideoPage() {
     });
 
   const onChange = (checkedValues) => {
-    console.log("checked = ", checkedValues);
+    setTagVideo(checkedValues);
   };
 
   const [fileList, setFileList] = useState([]);
@@ -48,6 +49,7 @@ function CreateVideoPage() {
 
   const handlePreview = async (file) => {
     if (!file.url && !file.preview) {
+      file.name.replace(" ", "-");
       file.preview = await getBase64(file.originFileObj);
     }
     setPreviewImage(file.url || file.preview);
@@ -134,7 +136,7 @@ function CreateVideoPage() {
             <div className="create-video_input_tag">
               <h3>Tag Video:</h3>
               <Form.Item name="tagVideo">
-                <Checkbox.Group options={tagVideo} onChange={onChange} />
+                <Checkbox.Group options={tagsVideo} onChange={onChange} />
               </Form.Item>
             </div>
             <div className="create-video_input_content">

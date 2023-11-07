@@ -32,7 +32,7 @@ function LoginPage() {
       }
     } catch (error) {
       console.log(error);
-      useLogInFail({ status: true, message: error.response.data.message });
+      useLogInFail({ status: true, message: error?.response?.data?.message });
     }
   };
 
