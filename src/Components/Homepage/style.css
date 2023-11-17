@@ -5,13 +5,20 @@
     margin: 0 auto;
 }
 
+.manage {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 10px 0px;
+}
+
 .dashboard_title {
     font-family: cursive;
     font-size: 25px;
     background-color: #C3ACD0;
     width: fit-content;
-    padding: 5px 20px;
+    padding: 5px 30px;
     border-radius: 20px;
+    align-self: center;
 }
 
 .dashboard_video {
@@ -32,6 +39,7 @@
 
 .ant-table-cell {
     text-align: center !important;
+    padding: 5px!important;
 }
 
 .ant-table-fixed {
@@ -47,16 +55,7 @@
     word-break: break-all;
 }
 
-.table-video_title {
-    width: 100px;
-    max-width: 100%;
-    white-space: nowrap;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.table-video_link {
+.table-video_column {
     width: 100px;
     max-width: 100%;
     white-space: nowrap;

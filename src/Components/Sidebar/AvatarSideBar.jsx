@@ -22,6 +22,7 @@ function AvatarSideBar() {
     <>
       <Dropdown menu={{ items }} placement="topLeft">
         <Avatar
+          src={`https://xsgames.co/randomusers/assets/avatars/pixel/45.jpg`}
           size={{ xs: 24, sm: 32, md: 40, lg: 60, xl: 60, xxl: 60 }}
           icon={<AntDesignOutlined />}
         />

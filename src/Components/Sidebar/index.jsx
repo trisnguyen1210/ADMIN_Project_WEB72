@@ -24,15 +24,9 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Homepage", "1", <PieChartOutlined />),
-  getItem("Category", "2", <DesktopOutlined />),
-  getItem("Best rate", "3", <ContainerOutlined />),
-  getItem("Performance", "sub1", <MailOutlined />, [
-    getItem("Option 4", "4"),
-    getItem("Option 5", "5"),
-    getItem("Option 6", "6"),
-    getItem("Option 7", "7"),
-  ]),
+  getItem("Video Management", "1", <PieChartOutlined />),
+  getItem("User Management", "2", <DesktopOutlined />),
+  getItem("Log", "3", <ContainerOutlined />),
 ];
 
 const Sidebar = () => {
@@ -41,7 +35,7 @@ const Sidebar = () => {
   const navigation = useNavigate();
 
   const navigatePage = (e) => {
-    const path = { 1: "/", 2: "/user", 3: "/task", 4: "/performance" };
+    const path = { 1: "/", 2: "/user", 3: "/log" };
     const pathPage = Object.values(path)[e.key - 1];
     navigation(`${pathPage}`);
   };
@@ -81,14 +75,14 @@ const Sidebar = () => {
         <div className="sidebar_footer_avatar">
           <AvatarSideBar />
         </div>
-        <div className="sidebar_footer_switch">
+        {/* <div className="sidebar_footer_switch">
           <Switch
             checked={theme === "dark"}
             onChange={changeTheme}
             checkedChildren="Dark"
             unCheckedChildren="Light"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

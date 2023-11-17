@@ -6,7 +6,7 @@ function ManagementVideo() {
   return (
     <>
       <div className="manage">
-        <div className="dashboard_title">DASHBOARD</div>
+        <div className="dashboard_title">Video Management</div>
         <div className="dashboard_video">
           <Link to={"/create-video"}>
             <Button type="primary">Add new video</Button>

@@ -1,5 +1,5 @@
 .edit-video {
-    width: fit-content;
+    width: 35vw;
 }
 
 .edit-video_title {
@@ -13,4 +13,24 @@
 
 .edit-video_data {
     display: flex;
+    width: 100%;
+}
+
+.edit-video_data>#input_title {
+    width: 100%;
+    padding-right: 10px;
+}
+
+.edit-video_data>#input_url {
+    width: 100%;
+    padding-right: 10px;
+}
+
+.edit-video_data>#input_content {
+    width: 100%;
+    padding-right: 10px;
+}
+
+#input_user {
+    width: fit-content;
 }

@@ -4,17 +4,19 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { Input, Tooltip, Modal, Upload, Button, Form } from "antd";
-import { Checkbox, Col, Row } from "antd";
+import { Checkbox } from "antd";
 import { useState } from "react";
 import "./style.css";
 import { createVideo } from "../../services";
+import { useNavigate } from "react-router-dom";
 function CreateVideoPage() {
   const { TextArea } = Input;
-
   const [tagVideo, setTagVideo] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
+
+  const navigate = useNavigate();
 
   const tagsVideo = [
     "Action movie",
@@ -59,7 +61,10 @@ function CreateVideoPage() {
     );
   };
 
-  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const handleChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+  const userNow = JSON.parse(localStorage.getItem("user")).user.username;
 
   const uploadButton = (
     <div>
@@ -83,7 +88,9 @@ function CreateVideoPage() {
       formData.append("contentVideo", values.contentVideo);
       formData.append("thumbnailVideo", imgThumbnail);
       formData.append("tagVideo", tagVideo);
+      formData.append("createBy", userNow);
       const result = await createVideo(formData);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -147,7 +154,7 @@ function CreateVideoPage() {
             </div>
             <div className="create-video_input_user">
               <h3>User add</h3>
-              <Form.Item name="userCreate">
+              <Form.Item name="userCreate" initialValue={userNow}>
                 <Input
                   placeholder="Create by User"
                   prefix={<UserOutlined className="site-form-item-icon" />}

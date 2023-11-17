@@ -6,7 +6,7 @@ import LoginPage from "./Components/LoginPage";
 import "./App.css";
 import HomePage from "./Components/Homepage";
 import UserPage from "./Components/UserPage";
-import TasksPage from "./Components/TasksPage";
+import LogsPage from "./Components/LogsPage";
 import { useDispatch, useSelector } from "react-redux";
 import MainLayout from "./Layout/MainLayout";
 import NonAuthLayout from "./Layout/NonAuthLayout";
@@ -38,9 +38,9 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/create-video" element={<CreateVideoPage />} />
-            <Route path="/edit-video" element={<EditVideoPage />} />
+            <Route path="/edit-video/:id" element={<EditVideoPage />} />
             <Route path="/user" element={<UserPage />} />
-            <Route path="/task" element={<TasksPage />} />
+            <Route path="/log" element={<LogsPage />} />
           </Route>
         )}
         <Route path="*" element={<ErrorLayout />} />

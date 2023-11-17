@@ -1,18 +1,127 @@
-import React, { useEffect, useState } from "react";
-import { Pagination, Space, Table, Tag } from "antd";
-import { getVideo } from "../../services/index";
+import React, { useEffect, useState, useRef } from "react";
+import { Pagination, Space, Table, Tag, Input, Button } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
+
+import { deleteVideo, getVideo } from "../../services/index";
 import { COULDINARY_URL } from "../../config";
+import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
-
 const TableVideo = () => {
   const [pageSize, setPageSize] = useState(3);
+  const [loadingThumnail, setLoadingThumnail] = useState(true);
   const [pageIndex, setPageIndex] = useState(1);
   const [videos, setVideos] = useState([]);
   const [count, setCount] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
   const navigate = useNavigate();
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+      close,
+    }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+        onKeyDown={(e) => e.stopPropagation()}
+      >
+        <div className="user-edit_search_input">
+          <Input
+            ref={searchInput}
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{
+              marginBottom: 8,
+              display: "block",
+            }}
+          />
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              close();
+            }}
+          >
+            close
+          </Button>
+        </div>
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? "#1677ff" : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (value) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: "#ffc069",
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={value ? value.toString() : ""}
+        />
+      ) : (
+        <a className="table-video_column">{value}</a>
+      ),
+  });
 
   const columns = [
     {
@@ -20,14 +129,16 @@ const TableVideo = () => {
       dataIndex: "titleVideo",
       key: "titleVideo",
       width: "10%",
-      render: (text) => <a className="table-video_title">{text}</a>,
+      ...getColumnSearchProps("titleVideo"),
+      // render: (text) => <a className="table-video_title">{text}</a>,
     },
     {
       title: "Link Video",
       dataIndex: "linkVideo",
       key: "linkVideo",
       width: "10%",
-      render: (video) => <a className="table-video_link">{video}</a>,
+      ...getColumnSearchProps("linkVideo"),
+      // render: (video) => <a className="table-video_link">{video}</a>,
     },
     {
       title: "Thumbnail",
@@ -36,14 +147,31 @@ const TableVideo = () => {
       width: "20%",
       render: (value) => (
         <div>
-          <img
-            width={329}
-            height={185}
-            src={`${COULDINARY_URL}${value}`}
-            onError={(error) => {
-              console.log(error);
-            }}
-          />
+          {!loadingThumnail ? (
+            <>
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{
+                      fontSize: 24,
+                    }}
+                    spin
+                  />
+                }
+              />
+            </>
+          ) : (
+            <>
+              <img
+                width={329}
+                height={185}
+                src={`${COULDINARY_URL}${value}`}
+                onError={(error) => {
+                  setLoadingThumnail(true);
+                }}
+              />
+            </>
+          )}
         </div>
       ),
     },
@@ -54,7 +182,7 @@ const TableVideo = () => {
       width: "20%",
       render: (_, value) => (
         <>
-          {value.tagVideo[0].split(",").map((tag, index) => {
+          {value.tagVideo.map((tag, index) => {
             let color = "geekblue";
             if (tag.length <= 8) {
               color = "volcano";
@@ -93,26 +221,35 @@ const TableVideo = () => {
       title: "Action",
       key: "action",
       width: "10%",
-      render: () => (
+      render: (data) => (
         <Space size="middle">
-          <a
-            onClick={() => {
-              navigate("/edit-video");
-            }}
-          >
-            Edit
-          </a>
-          <a>Delete</a>
+          <a onClick={() => navigate(`/edit-video/${data._id}`)}>Edit</a>
+          <a onClick={() => handleDelete(data)}>Delete</a>
         </Space>
       ),
     },
   ];
+
   const getPagingVideo = async () => {
     try {
       const result = await getVideo(pageSize, pageIndex);
       setVideos(result.data.Info.videos);
       setCount(result.data.Info.count);
       setTotalPage(result.data.Info.totalPage);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (values) => {
+    try {
+      const id = values._id;
+      const video = values.titleVideo;
+      const userNow = JSON.parse(localStorage.getItem("user")).user.username;
+      const result = await deleteVideo(id, { username: userNow, video });
+      if (result) {
+        setVideos(videos.filter((item) => item._id != id));
+      }
     } catch (error) {
       console.log(error);
     }
