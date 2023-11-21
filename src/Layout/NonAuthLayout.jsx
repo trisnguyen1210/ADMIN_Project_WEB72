@@ -1,10 +1,11 @@
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
 
 const NonAuthLayout = () => {
-    return (
-        <>
-            <Outlet /></>
-    )
-}
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+};
 
-export default NonAuthLayout
+export default NonAuthLayout;
