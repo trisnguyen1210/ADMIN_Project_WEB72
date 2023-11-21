@@ -8,7 +8,7 @@ function ManagementVideo() {
       <div className="manage">
         <div className="dashboard_title">Video Management</div>
         <div className="dashboard_video">
-          <Link to={"/create-video"}>
+          <Link to={"/ADMIN_Project_WEB72/create-video"}>
             <Button type="primary">Add new video</Button>
           </Link>
         </div>
