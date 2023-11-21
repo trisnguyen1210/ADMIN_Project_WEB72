@@ -1,6 +1,6 @@
-import React, { useNavigate } from "react";
+import React from "react";
 import { Button, Result } from "antd";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function ErrorLayout() {
   const navigate = useNavigate();
   return (
