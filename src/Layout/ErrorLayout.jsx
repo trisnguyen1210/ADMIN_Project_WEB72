@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useNavigate } from "react";
 import { Button, Result } from "antd";
 import { Link } from "react-router-dom";
 function ErrorLayout() {
+  const navigate = useNavigate();
   return (
     <>
       <Result
@@ -9,9 +10,14 @@ function ErrorLayout() {
         title="404"
         subTitle="Sorry, the page you visited does not exist."
         extra={
-          <Link to={"/ADMIN_Project_WEB72/"}>
-            <Button type="primary">Back Home</Button>
-          </Link>
+          <Button
+            type="primary"
+            onClick={() => {
+              navigate("/ADMIN_Project_WEB72");
+            }}
+          >
+            Back Home
+          </Button>
         }
       />
     </>
