@@ -90,7 +90,7 @@ function EditVideoPage() {
       formData.append("tagVideo", values.tagVideo);
       formData.append("createBy", userNow);
       const result = await updateVideo(param.id, formData);
-      navigate("/");
+      navigate("/ADMIN_Project_WEB72/");
     } catch (error) {
       console.log(error);
     }

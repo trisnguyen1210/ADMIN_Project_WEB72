@@ -30,17 +30,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         {!isUserLoggedIn && (
-          <Route path="/" element={<NonAuthLayout />}>
-            <Route path="/" element={<LoginPage />} />
+          <Route path="/ADMIN_Project_WEB72/" element={<NonAuthLayout />}>
+            <Route path="/ADMIN_Project_WEB72/" element={<LoginPage />} />
           </Route>
         )}
         {isUserLoggedIn && (
-          <Route path="/" element={<MainLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/create-video" element={<CreateVideoPage />} />
-            <Route path="/edit-video/:id" element={<EditVideoPage />} />
-            <Route path="/user" element={<UserPage />} />
-            <Route path="/log" element={<LogsPage />} />
+          <Route path="/ADMIN_Project_WEB72/" element={<MainLayout />}>
+            <Route path="/ADMIN_Project_WEB72/" element={<HomePage />} />
+            <Route path="/ADMIN_Project_WEB72/create-video" element={<CreateVideoPage />} />
+            <Route path="/ADMIN_Project_WEB72/edit-video/:id" element={<EditVideoPage />} />
+            <Route path="/ADMIN_Project_WEB72/user" element={<UserPage />} />
+            <Route path="/ADMIN_Project_WEB72/log" element={<LogsPage />} />
           </Route>
         )}
         <Route path="*" element={<ErrorLayout />} />
