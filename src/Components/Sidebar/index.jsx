@@ -35,7 +35,11 @@ const Sidebar = () => {
   const navigation = useNavigate();
 
   const navigatePage = (e) => {
-    const path = { 1: "/", 2: "/user", 3: "/log" };
+    const path = {
+      1: "/ADMIN_Project_WEB72/",
+      2: "/ADMIN_Project_WEB72/user",
+      3: "/ADMIN_Project_WEB72/log",
+    };
     const pathPage = Object.values(path)[e.key - 1];
     navigation(`${pathPage}`);
   };
