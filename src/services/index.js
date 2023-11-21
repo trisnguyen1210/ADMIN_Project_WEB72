@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    // baseURL: "https://be-project-web72.onrender.com/",
-    baseURL: "http://localhost:3000/",
+    baseURL: "https://be-project-web72.onrender.com/",
+    // baseURL: "http://localhost:3000/",
 })
 
 axiosInstance.interceptors.request.use((config) => {
@@ -49,6 +49,10 @@ const deleteVideo = (id, data) => {
     return axiosInstance.delete(`/video/delete-video/${id}`, { data })
 }
 
+const deleteUser = (id) => {
+    return axiosInstance.delete(`/users/deleteuser/${id}`)
+}
+
 const getVideoId = (id) => {
     return axiosInstance.get(`/video/id/${id}`)
 }
@@ -56,4 +60,4 @@ const getVideoId = (id) => {
 const getLog = (pageSize = 100, pageIndex = 1) => {
     return axiosInstance.get(`/logs/logs-pagging?pageSize=${pageSize}&pageIndex=${pageIndex}`)
 }
-export { logIn, signUp, getAllUser, getUser, updateUser, createVideo, getVideo, getVideoId, updateVideo, deleteVideo, getLog }
+export { logIn, signUp, getAllUser, getUser, updateUser, deleteUser, createVideo, getVideo, getVideoId, updateVideo, deleteVideo, getLog }

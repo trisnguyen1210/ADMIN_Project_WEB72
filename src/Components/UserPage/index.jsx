@@ -1,5 +1,5 @@
 import "./style.css";
-import { getUser } from "../../services";
+import { deleteUser, getUser } from "../../services";
 import { useEffect, useRef, useState } from "react";
 import { Button, Input, Pagination, Space, Table } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
@@ -40,6 +40,10 @@ function UserPage() {
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText("");
+  };
+
+  const handleDeleteUser = async (idUser) => {
+    const result = await deleteUser(idUser);
   };
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -177,7 +181,17 @@ function UserPage() {
           >
             Edit
           </a>
-          <a>Delete</a>
+          <a
+            onClick={() => {
+              handleDeleteUser(data._id);
+              setAllUser((prevDataUser) => {
+                const newData = prevDataUser.filter((item) => item._id !== data._id);
+                return newData;
+              });
+            }}
+          >
+            Delete
+          </a>
         </Space>
       ),
     },
