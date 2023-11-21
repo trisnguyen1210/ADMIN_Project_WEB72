@@ -223,7 +223,13 @@ const TableVideo = () => {
       width: "10%",
       render: (data) => (
         <Space size="middle">
-          <a onClick={() => navigate(`/edit-video/${data._id}`)}>Edit</a>
+          <a
+            onClick={() =>
+              navigate(`/ADMIN_Project_WEB72/edit-video/${data._id}`)
+            }
+          >
+            Edit
+          </a>
           <a onClick={() => handleDelete(data)}>Delete</a>
         </Space>
       ),
